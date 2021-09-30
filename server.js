@@ -1,4 +1,5 @@
 const app = require('express')()
+require('express-async-errors')
 const bodyParser = require('body-parser')
 const productRoutes = require('./app/routes/products')
 const mongoose = require('mongoose')
@@ -16,6 +17,11 @@ app.use('/products', productRoutes)
 
 app.get('/', (req, res) => {
   return res.send('Hello World!')
+})
+
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).json({ error: 'Internal Server Error' })
 })
 
 const port = 3000
