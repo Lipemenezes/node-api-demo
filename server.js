@@ -1,6 +1,7 @@
 const app = require('express')()
 require('express-async-errors')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const productRoutes = require('./app/routes/products')
 const mongoose = require('mongoose')
 
@@ -13,6 +14,7 @@ connectDb()
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(cors())
 app.use('/products', productRoutes)
 
 app.get('/', (req, res) => {
